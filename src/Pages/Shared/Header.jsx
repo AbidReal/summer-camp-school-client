@@ -1,28 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
-import { setTheme } from "../../theme";
-import { BsMoonStarsFill, BsSun } from "react-icons/bs";
+import { useState } from "react";
+import ToggleDark from "./ToggleDark";
 
 const Header = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const currentTheme = localStorage.getItem("theme");
-    setIsDarkMode(currentTheme === "dark");
-    setTheme(currentTheme); // Set initial theme from local storage
-  }, []);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => {
-      const newMode = !prevMode;
-      const theme = newMode ? "dark" : "light";
-      localStorage.setItem("theme", theme);
-      setTheme(theme); // Update theme dynamically
-      return newMode;
-    });
-  };
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className="bg-gradient-to-r from-nav to-bar ">
@@ -78,15 +59,7 @@ const Header = () => {
             </li>
           </ul>
           <div className="flex items-center space-x-4 md:space-x-10">
-            {/* Dark Mode toggle  */}
-            <div
-              className={` rounded-full p-2 hover:cursor-pointer ${
-                isDarkMode ? "bg-gray-800" : "bg-gray-200"
-              }`}
-              onClick={toggleDarkMode}
-            >
-              {isDarkMode ? <BsMoonStarsFill /> : <BsSun />}
-            </div>
+            <ToggleDark></ToggleDark>
             <button className=" px-4 md:px-7 py-4 btn-color text-white font-extrabold md:text-lg rounded-lg hover:from-btnBar hover:to-btnNav ">
               Login
             </button>

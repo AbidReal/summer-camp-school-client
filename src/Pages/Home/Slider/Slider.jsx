@@ -54,7 +54,7 @@ const Slider = () => {
         <SwiperSlide>
           <div className="h-full w-full relative">
             <img
-              src="https://img.freepik.com/free-photo/preschooler-boy-dressed-white-karate-kimono-with-orange-belt_613910-1994.jpg?w=1380&t=st=1686468521~exp=1686469121~hmac=f10bcf2f06433da44af38b8ad24e2a2d6898df29013955b4c6f50c229bbd66a8"
+              src="https://i.ibb.co/q9Zty3p/preschooler-boy-dressed-white-karate-kimono-with-orange-belt-613910-1994.jpg"
               alt="Slide 2"
               className="h-full w-full object-cover"
             />
