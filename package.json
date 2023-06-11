@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
+    "@heroicons/react": "^2.0.18",
     "daisyui": "^3.0.25",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-awesome-reveal": "^4.2.3",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.9.0",
     "react-router-dom": "^6.12.1",
     "sort-by": "^1.2.0"
   },
