@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import { EffectFade, Navigation, Pagination, Autoplay } from "swiper";
 
 import "./slider.css"; // Import custom CSS file
+import { Fade } from "react-awesome-reveal";
 
 const Slider = () => {
   return (
@@ -39,12 +40,14 @@ const Slider = () => {
               className="h-full w-full object-cover"
             />
             <div className="absolute text-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-              <p className="text-4xl font-bold ">
-                EVERY GREAT JOURNEY STARTS WITH ONE STEP!
-              </p>
-              <p className="mt-8 text-lg">
-                Make This summer Count <br /> And Become A Stronger Person
-              </p>
+              <Fade cascade direction="down">
+                <p className="text-4xl font-bold ">
+                  EVERY GREAT JOURNEY <br /> STARTS WITH ONE STEP!
+                </p>
+                <p className="mt-8 text-lg">
+                  Make This summer Count <br /> And Become A Stronger Person
+                </p>
+              </Fade>
             </div>
           </div>
         </SwiperSlide>
@@ -56,14 +59,16 @@ const Slider = () => {
               className="h-full w-full object-cover"
             />
             <div className="absolute text-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-              <p className="text-4xl font-bold uppercase ">
-                Welcome To FistZen <br />
-                Become a stronger person
-              </p>
-              <p className="mt-8 text-lg">
-                Here you can learn your favorite martial arts in this summer and
-                be a better person both physically and mentally
-              </p>
+              <Fade cascade direction="down">
+                <p className="text-4xl font-bold uppercase ">
+                  Welcome To FistZen <br />
+                  Become a stronger person
+                </p>
+                <p className="mt-8 text-lg">
+                  Here you can learn your favorite martial arts in this summer
+                  and be a better person both physically and mentally
+                </p>
+              </Fade>
             </div>
           </div>
         </SwiperSlide>
