@@ -5,7 +5,15 @@ export default {
     themes: ["light", "dark"],
   },
   theme: {
-    extend: {},
+    extend: {
+      aspectRatio: {
+        square: "1",
+      },
+      colors: {
+        btnL: "#e55547",
+        btnR: "#b02619",
+      },
+    },
   },
   plugins: [require("daisyui")],
 };
