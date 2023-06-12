@@ -24,7 +24,7 @@ export default function TopClasses() {
           <div className="card w-96 bg-base-100 shadow-xl">
             <figure className="px-10 pt-10">
               <img
-                src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                src="https://media.istockphoto.com/id/1153640359/photo/woman-in-kimono-performing-a-flying-kick-against-a-black-background.jpg?s=612x612&w=0&k=20&c=JIHC4TGeGGS361KHonRmN83YYuNDjDh-MywDWtvC42M="
                 alt="Shoes"
                 className="rounded-xl"
               />

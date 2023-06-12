@@ -19,10 +19,13 @@ const Classes = () => {
       <div className="  grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 ">
         {classes.map(
           ({ _id, availableSeats, image, instructorName, name, price }) => (
-            <div key={_id} className="card w-96 glass">
+            <div
+              key={_id}
+              className="card w-96 glass transition-transform duration-500 transform hover:scale-110 "
+            >
               <figure className="w-full h-full p-4">
                 <img
-                  className="w-full h-full object-cover rounded-xl"
+                  className="w-full h-full object-cover rounded-xl transition-transform duration-500 transform hover:scale-110 "
                   src={image}
                   alt={name}
                 />
