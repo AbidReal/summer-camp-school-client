@@ -60,9 +60,12 @@ const Header = () => {
           </ul>
           <div className="flex items-center space-x-4 md:space-x-10">
             <ToggleDark></ToggleDark>
-            <button className=" px-4 md:px-7 py-4 btn-color text-white font-extrabold md:text-lg rounded-lg hover:from-btnBar hover:to-btnNav ">
-              Login
-            </button>
+            <Link to={"/login"}>
+              <button className=" px-4 md:px-7 py-4 btn-color text-white font-extrabold md:text-lg rounded-lg hover:from-btnBar hover:to-btnNav ">
+                Login
+              </button>
+            </Link>
+
             <div className="lg:hidden">
               <button onClick={() => setIsMenuOpen(true)}>
                 <Bars3Icon className="w-6"></Bars3Icon>
@@ -79,10 +82,12 @@ const Header = () => {
                         </div>
                       </Link>
                       <ToggleDark></ToggleDark>
+                      <Link to={"/login"}>
+                        <button className=" px-4  py-3 btn-color text-white font-extrabold md:text-lg rounded-lg hover:from-btnBar hover:to-btnNav ">
+                          Login
+                        </button>
+                      </Link>
 
-                      <button className=" px-4 md:px-7 py-4 btn-color text-white font-extrabold md:text-lg rounded-lg hover:from-btnBar hover:to-btnNav ">
-                        Login
-                      </button>
                       {/* dropdown close button */}
                       <div>
                         <button onClick={() => setIsMenuOpen(false)}>
