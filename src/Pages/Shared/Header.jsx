@@ -39,7 +39,7 @@ const Header = () => {
             </li>
             <li>
               <NavLink
-                to="/applied-jobs"
+                to="/classes"
                 className={({ isActive }) =>
                   isActive ? "text-red-400" : "default"
                 }
@@ -49,7 +49,7 @@ const Header = () => {
             </li>
             <li>
               <NavLink
-                to="/blog"
+                to="/dashboard"
                 className={({ isActive }) =>
                   isActive ? "text-red-400" : "default"
                 }
@@ -78,6 +78,7 @@ const Header = () => {
                           Fist<span className="text-red-500  ">Zen</span>
                         </div>
                       </Link>
+                      <ToggleDark></ToggleDark>
 
                       <button className=" px-4 md:px-7 py-4 btn-color text-white font-extrabold md:text-lg rounded-lg hover:from-btnBar hover:to-btnNav ">
                         Login
@@ -102,7 +103,7 @@ const Header = () => {
                         </li>
                         <li>
                           <Link
-                            to="/statistics"
+                            to="/instructors"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-red-400"
                           >
                             Instructors
@@ -110,7 +111,7 @@ const Header = () => {
                         </li>
                         <li>
                           <Link
-                            to="/applied-jobs"
+                            to="/classes"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-red-400"
                           >
                             Classes
@@ -118,7 +119,7 @@ const Header = () => {
                         </li>
                         <li>
                           <Link
-                            to="/blog"
+                            to="/dashboard"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-red-400"
                           >
                             Dashboard
