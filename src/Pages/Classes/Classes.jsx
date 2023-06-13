@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Classes = () => {
-  //TODO: add setLoading
+  const { user } = useContext(AuthContext);
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:5000/classes")
       .then((res) => res.json())
@@ -13,6 +18,30 @@ const Classes = () => {
         setLoading(false);
       });
   }, []);
+
+  const handleSelectedClass = (selectedClass) => {
+    console.log(selectedClass);
+    if (user) {
+      fetch("http://localhost:5000/selected-classes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(selectedClass),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            toast.success("Class selected successfully!");
+          }
+        });
+    } else {
+      toast.error("Please Login before selecting a class.");
+      navigate("/login", {
+        state: { error: "Please Login before selecting a class." },
+      });
+    }
+  };
 
   return (
     <div className="custom-container">
@@ -43,7 +72,19 @@ const Classes = () => {
                     Price: <span className="text-red-500">${price}</span>{" "}
                   </p>
                   <div className="card-actions justify-end">
-                    <button className="btn text-white btn-color w-full ">
+                    <button
+                      onClick={() =>
+                        handleSelectedClass({
+                          _id,
+                          availableSeats,
+                          image,
+                          instructorName,
+                          name,
+                          price,
+                        })
+                      }
+                      className="btn text-white btn-color w-full "
+                    >
                       Select
                     </button>
                   </div>
@@ -53,6 +94,7 @@ const Classes = () => {
           )}
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

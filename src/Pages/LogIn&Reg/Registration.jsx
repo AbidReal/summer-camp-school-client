@@ -7,9 +7,24 @@ const Registration = () => {
   //confirm pass section
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
+  const [emptyPassword, setEmptyPassword] = useState("");
+  const [emptyMail, setEmptyMail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [passwordErrors, setPasswordErrors] = useState("");
+  const [formValid, setFormValid] = useState(false);
+
+  const handleEmptyEmail = (e) => {
+    const email = e.target.value;
+    // Check if both email and password are filled
+    setFormValid(email !== "" && emptyPassword !== "");
+  };
+
+  const handleEmptyPassword = (e) => {
+    const password = e.target.value;
+    // Check if both email and password are filled
+    setFormValid(emptyMail !== "" && password !== "");
+  };
 
   const togglePasswordVisibility = (e) => {
     e.preventDefault();
@@ -110,19 +125,27 @@ const Registration = () => {
                   className="input input-bordered"
                 />
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text">
+                    Email<sup className="sup">*</sup>
+                  </span>
                 </label>
                 <input
                   type="email"
                   name="email"
                   placeholder="email"
                   className="input input-bordered"
+                  onChange={(e) => {
+                    handleEmptyEmail(e);
+                    setEmptyMail(e.target.value);
+                  }}
                 />
               </div>
               <div className="form-control">
                 <div className="relative">
                   <label className="label">
-                    <span className="label-text">Password</span>
+                    <span className="label-text">
+                      Password<sup className="sup">*</sup>
+                    </span>
                   </label>
                   <div className="relative">
                     <input
@@ -131,7 +154,11 @@ const Registration = () => {
                       placeholder="Password"
                       className="input input-bordered pr-[120px]"
                       value={password}
-                      onChange={handlePasswordChange}
+                      onChange={(e) => {
+                        handlePasswordChange(e);
+                        handleEmptyPassword(e);
+                        setEmptyPassword(e.target.value);
+                      }}
                     />
                     <button
                       onClick={togglePasswordVisibility}
@@ -189,10 +216,10 @@ const Registration = () => {
                 <input
                   type="submit"
                   value="Register"
-                  className={`btn btn-color text-white ${
+                  className={`btn btn-color  text-white ${
                     passwordMatch ? "" : "opacity-75  pointer-events-none"
                   }`}
-                  disabled={!passwordMatch}
+                  disabled={!formValid || !passwordMatch}
                 />
               </div>
             </form>

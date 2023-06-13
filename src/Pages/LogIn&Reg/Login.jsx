@@ -1,8 +1,9 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import { AuthContext } from "../../providers/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const { signIn, googleSignInPopUp } = useContext(AuthContext);
@@ -13,6 +14,12 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  useEffect(() => {
+    if (location.state && location.state.error) {
+      toast.error(location.state.error);
+    }
+  }, [location.state]);
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -127,6 +134,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
