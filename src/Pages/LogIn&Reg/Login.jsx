@@ -1,14 +1,21 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
+
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
+    signIn(email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
   };
 
   //pass section
