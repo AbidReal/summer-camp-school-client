@@ -1,15 +1,18 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import { AuthContext } from "../../providers/AuthProvider";
-import { FcGoogle } from "react-icons/Fc";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const { signIn, googleSignInPopUp } = useContext(AuthContext);
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState(null);
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const [error, setError] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -21,6 +24,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -29,8 +33,6 @@ const Login = () => {
     setError("");
   };
 
-  const from = location.state?.from?.pathname || "/";
-
   //   google sign in
   const handleGoogleSignIn = () => {
     googleSignInPopUp()
@@ -38,7 +40,7 @@ const Login = () => {
         const loggedInUser = result.user;
         // console.log(loggedInUser);
         setUser(loggedInUser);
-        Navigate(from, { replace: true });
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error.message);
@@ -48,7 +50,6 @@ const Login = () => {
   };
 
   //pass section
-  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = (e) => {
     e.preventDefault();

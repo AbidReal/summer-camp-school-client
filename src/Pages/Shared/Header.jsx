@@ -60,7 +60,7 @@ const Header = () => {
             </li>
             <li>
               <NavLink
-                to="/dashboard"
+                to="/student_dashboard"
                 className={({ isActive }) =>
                   isActive ? "text-red-400" : "default"
                 }
@@ -199,7 +199,7 @@ const Header = () => {
                         </li>
                         <li>
                           <Link
-                            to="/dashboard"
+                            to="/student_dashboard"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-red-400"
                           >
                             Dashboard
