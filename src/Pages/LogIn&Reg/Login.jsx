@@ -1,21 +1,50 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import { AuthContext } from "../../providers/AuthProvider";
+import { FcGoogle } from "react-icons/Fc";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleSignInPopUp } = useContext(AuthContext);
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useState(null);
+
+  const [error, setError] = useState("");
 
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
-    signIn(email, password).then((result) => {
-      const user = result.user;
-      console.log(user);
-    });
+    // console.log(email, password);
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+      });
+    setError("");
+  };
+
+  const from = location.state?.from?.pathname || "/";
+
+  //   google sign in
+  const handleGoogleSignIn = () => {
+    googleSignInPopUp()
+      .then((result) => {
+        const loggedInUser = result.user;
+        // console.log(loggedInUser);
+        setUser(loggedInUser);
+        Navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError(error.message);
+      });
+    setError("");
   };
 
   //pass section
@@ -81,6 +110,7 @@ const Login = () => {
                   </p>
                 </label>
               </div>
+              <p className="text-red-500 ">{error}</p>
               <div className="form-control mt-6">
                 <input
                   type="submit"
@@ -88,6 +118,10 @@ const Login = () => {
                   className="btn btn-color text-white"
                 />
               </div>
+              <FcGoogle
+                onClick={handleGoogleSignIn}
+                className=" mt-6 text-5xl text-center mx-auto hover:scale-110 transform transition-all duration-300 ease-in-out"
+              />
             </form>
           </div>
         </div>
