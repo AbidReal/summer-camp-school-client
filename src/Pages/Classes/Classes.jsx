@@ -2,12 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useCart from "../../hooks/useCart";
 
 const Classes = () => {
   const { user } = useContext(AuthContext);
+  const [, refetch] = useCart();
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:5000/classes")
@@ -21,7 +24,7 @@ const Classes = () => {
 
   const handleSelectedClass = (selectedClass) => {
     console.log(selectedClass);
-    if (user) {
+    if (user && user.email) {
       fetch("http://localhost:5000/selected-classes", {
         method: "POST",
         headers: {
@@ -32,13 +35,17 @@ const Classes = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
+            refetch();
             toast.success("Class selected successfully!");
           }
         });
     } else {
       toast.error("Please Login before selecting a class.");
       navigate("/login", {
-        state: { error: "Please Login before selecting a class." },
+        state: {
+          from: location,
+          error: "Please Login before selecting a class.",
+        },
       });
     }
   };
@@ -75,7 +82,8 @@ const Classes = () => {
                     <button
                       onClick={() =>
                         handleSelectedClass({
-                          _id,
+                          classId: _id,
+                          email: user.email,
                           availableSeats,
                           image,
                           instructorName,

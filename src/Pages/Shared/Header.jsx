@@ -4,9 +4,12 @@ import { useContext, useState } from "react";
 import ToggleDark from "./ToggleDark";
 import { AuthContext } from "../../providers/AuthProvider";
 import { FaUserCircle } from "react-icons/fa";
+import useCart from "../../hooks/useCart";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [selectedClasses] = useCart();
+  console.log(selectedClasses);
   const handleLogOut = () => {
     logOut()
       .then()
@@ -66,6 +69,11 @@ const Header = () => {
                 }
               >
                 Dashboard
+                <sup className="sup text-red-500">
+                  {selectedClasses.length > 0
+                    ? `+${selectedClasses?.length}`
+                    : ""}
+                </sup>
               </NavLink>
             </li>
           </ul>
