@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
         element: <Registration />,
       },
       {
-        path: "/student_dashboard",
+        path: "/student-dashboard",
         element: (
           <PrivateRoute>
             <StudentDashboard />
