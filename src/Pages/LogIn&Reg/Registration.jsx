@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Registration = () => {
+  //confirm pass section
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(false);
+  const [passwordErrors, setPasswordErrors] = useState("");
 
   const togglePasswordVisibility = (e) => {
     e.preventDefault();
@@ -24,6 +27,69 @@ const Registration = () => {
   useEffect(() => {
     setPasswordMatch(password === confirmPassword);
   }, [password, confirmPassword]);
+
+  //pass error validator
+  useEffect(() => {
+    setPasswordErrors(validatePassword(password));
+  }, [password]);
+
+  const validatePassword = (password) => {
+    if (password.length > 0 && password.length < 6) {
+      return "Password must be at least 6 characters long.";
+    }
+    if (password.length > 0 && !/[A-Z]/.test(password)) {
+      return "Password must contain at least one capital letter.";
+    }
+    if (password.length > 0 && !/[\W_]/.test(password)) {
+      return "Password must contain at least one special character.";
+    }
+    return "";
+  };
+
+  //handle register
+
+  const navigate = useNavigate();
+
+  const [error, setError] = useState("");
+
+  const { createUser, userProfile } = useContext(AuthContext);
+
+  const handleRegister = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const photo = form.photo.value;
+    console.log(name, email, password, photo);
+    const from = location.state?.from?.pathname || "/login";
+
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      setPasswordErrors(passwordErrors);
+      return;
+    }
+
+    // firebase part
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        userProfile(name, photo)
+          .then(() => {})
+          .catch((error) => {
+            console.log(error);
+          });
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+      });
+    setError("");
+  };
+
   return (
     <div className="">
       <div className="hero min-h-screen bg-base-200">
@@ -32,10 +98,10 @@ const Registration = () => {
             <img src="https://i.ibb.co/GnXJkzL/martial-arts-taekwondo-cartoon.png" />
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form className="card-body">
+            <form onSubmit={handleRegister} className="card-body">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text">Name</span>
                 </label>
                 <input
                   type="text"
@@ -43,6 +109,9 @@ const Registration = () => {
                   placeholder="name"
                   className="input input-bordered"
                 />
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -95,6 +164,15 @@ const Registration = () => {
                   </div>
                 )}
                 <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  type="text"
+                  name="photo"
+                  placeholder="Photo URL"
+                  className="input input-bordered"
+                />
+                <label className="label">
                   <p>
                     Already have an account?{" "}
                     <Link className="text-red-700 hover:underline " to="/login">
@@ -102,6 +180,10 @@ const Registration = () => {
                     </Link>
                   </p>
                 </label>
+                <p className="text-red-500 ">{error}</p>
+                {password !== "" && passwordErrors && (
+                  <div className="text-xs text-red-500">{passwordErrors}</div>
+                )}
               </div>
               <div className="form-control mt-6">
                 <input
