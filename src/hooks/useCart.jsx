@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import axios from "axios";
+// import axios from "axios";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useCart = () => {
   const { user } = useContext(AuthContext);
-  const token = localStorage.getItem("access-token");
+  // const token = localStorage.getItem("access-token");
+  const [axiosSecure] = useAxiosSecure();
   const [isUserValid, setIsUserValid] = useState(false);
 
   useEffect(() => {
@@ -18,15 +20,9 @@ const useCart = () => {
 
   const fetchSelectedClasses = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/selected-classes?email=${user.email}`,
-        {
-          headers: {
-            authorization: `bearer ${token}`,
-          },
-        }
-      );
-      return response.data;
+      const res = await axiosSecure(`/selected-classes?email=${user?.email}`);
+      console.log("res drom axios", res);
+      return res.data;
     } catch (error) {
       if (error.response && error.response.status === 403) {
         // Handle 403 error gracefully, e.g., show a notification, redirect to login, etc.
