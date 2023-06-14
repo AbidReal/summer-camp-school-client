@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useCart from "../../hooks/useCart";
 
 const Classes = () => {
@@ -10,7 +10,7 @@ const Classes = () => {
   const [, refetch] = useCart();
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:5000/classes")
@@ -43,7 +43,7 @@ const Classes = () => {
       toast.error("Please Login before selecting a class.");
       navigate("/login", {
         state: {
-          from: location,
+          // from: location,
           error: "Please Login before selecting a class.",
         },
       });
