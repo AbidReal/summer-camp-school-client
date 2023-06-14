@@ -8,24 +8,21 @@ const Registration = () => {
   //confirm pass section
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
-  const [emptyPassword, setEmptyPassword] = useState("");
+  // const [emptyPassword, setEmptyPassword] = useState("");
   const [emptyMail, setEmptyMail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [passwordErrors, setPasswordErrors] = useState("");
-  const [formValid, setFormValid] = useState(false);
 
   const handleEmptyEmail = (e) => {
     const email = e.target.value;
-    // Check if both email and password are filled
-    setFormValid(email !== "" && emptyPassword !== "");
+    setEmptyMail(email);
   };
 
-  const handleEmptyPassword = (e) => {
-    const password = e.target.value;
-    // Check if both email and password are filled
-    setFormValid(emptyMail !== "" && password !== "");
-  };
+  // const handleEmptyPassword = (e) => {
+  //   const password = e.target.value;
+  //   setEmptyPassword(password);
+  // };
 
   const togglePasswordVisibility = (e) => {
     e.preventDefault();
@@ -44,7 +41,6 @@ const Registration = () => {
     setPasswordMatch(password === confirmPassword);
   }, [password, confirmPassword]);
 
-  //pass error validator
   useEffect(() => {
     setPasswordErrors(validatePassword(password));
   }, [password]);
@@ -62,12 +58,8 @@ const Registration = () => {
     return "";
   };
 
-  //handle register
-
   const navigate = useNavigate();
-
   const [error, setError] = useState("");
-
   const { createUser, userProfile } = useContext(AuthContext);
 
   const handleRegister = (event) => {
@@ -77,7 +69,6 @@ const Registration = () => {
     const email = form.email.value;
     const password = form.password.value;
     const photo = form.photo.value;
-    console.log(name, email, password, photo);
     const from = location.state?.from?.pathname || "/login";
 
     const passwordErrors = validatePassword(password);
@@ -85,8 +76,6 @@ const Registration = () => {
       setPasswordErrors(passwordErrors);
       return;
     }
-
-    // firebase part
 
     createUser(email, password)
       .then((result) => {
@@ -120,6 +109,8 @@ const Registration = () => {
     setError("");
   };
 
+  const formValid = emptyMail !== "" && password !== "" && passwordMatch;
+
   return (
     <div className="">
       <div className="hero min-h-screen bg-base-200">
@@ -149,10 +140,7 @@ const Registration = () => {
                   name="email"
                   placeholder="email"
                   className="input input-bordered"
-                  onChange={(e) => {
-                    handleEmptyEmail(e);
-                    setEmptyMail(e.target.value);
-                  }}
+                  onChange={handleEmptyEmail}
                 />
               </div>
               <div className="form-control">
@@ -169,11 +157,7 @@ const Registration = () => {
                       placeholder="Password"
                       className="input input-bordered pr-[120px]"
                       value={password}
-                      onChange={(e) => {
-                        handlePasswordChange(e);
-                        handleEmptyPassword(e);
-                        setEmptyPassword(e.target.value);
-                      }}
+                      onChange={handlePasswordChange}
                     />
                     <button
                       onClick={togglePasswordVisibility}
@@ -202,7 +186,7 @@ const Registration = () => {
                 />
                 {passwordMatch ? null : (
                   <div className="text-xs text-red-500">
-                    Password do not match.
+                    Passwords do not match.
                   </div>
                 )}
                 <label className="label">
@@ -217,7 +201,7 @@ const Registration = () => {
                 <label className="label">
                   <p>
                     Already have an account?{" "}
-                    <Link className="text-red-700 hover:underline " to="/login">
+                    <Link className="text-red-700 hover:underline" to="/login">
                       Login
                     </Link>
                   </p>
@@ -231,12 +215,13 @@ const Registration = () => {
                 <input
                   type="submit"
                   value="Register"
-                  className={`btn btn-color  text-white ${
-                    passwordMatch ? "" : "opacity-75  pointer-events-none"
+                  className={`btn btn-color text-white ${
+                    formValid ? "" : "btn-disabled"
                   }`}
-                  disabled={!formValid || !passwordMatch}
+                  disabled={!formValid}
                 />
               </div>
+              <div className="divider">or</div>
               <SocialLogin />
             </form>
           </div>
