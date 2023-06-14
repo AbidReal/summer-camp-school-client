@@ -30,8 +30,9 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         navigate(from, { replace: true });
+        window.location.reload();
+        console.log(user);
       })
       .catch((error) => {
         console.log(error);
