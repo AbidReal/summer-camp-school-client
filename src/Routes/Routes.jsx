@@ -5,6 +5,9 @@ import Main from "../Layout/Main";
 import Classes from "../Pages/Classes/Classes";
 import ManageClasses from "../Pages/Dashboards/AdminDashboard/ManageClasses";
 import ManageUsers from "../Pages/Dashboards/AdminDashboard/ManageUsers";
+import AddAClass from "../Pages/Dashboards/InstructorDashboard/AddAClass";
+import InstructorClasses from "../Pages/Dashboards/InstructorDashboard/InstructorClasses";
+import SharedDashboard from "../Pages/Dashboards/sharedDashboard";
 import StudentCart from "../Pages/Dashboards/StudentDashboard/StudentCart";
 import StudentEnrolled from "../Pages/Dashboards/StudentDashboard/StudentEnrolled";
 
@@ -49,6 +52,10 @@ export const router = createBrowserRouter([
         ),
         children: [
           {
+            path: "shared-dashboard",
+            element: <SharedDashboard />,
+          },
+          {
             path: "my-selected-classes",
             element: <StudentCart></StudentCart>,
           },
@@ -63,6 +70,14 @@ export const router = createBrowserRouter([
           {
             path: "manage-classes",
             element: <ManageClasses />,
+          },
+          {
+            path: "add-a-class",
+            element: <AddAClass />,
+          },
+          {
+            path: "instructor-classes",
+            element: <InstructorClasses />,
           },
         ],
       },

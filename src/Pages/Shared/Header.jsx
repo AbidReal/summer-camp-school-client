@@ -63,7 +63,7 @@ const Header = () => {
             </li>
             <li>
               <NavLink
-                to="/dashboard/my-selected-classes"
+                to="/dashboard/shared-dashboard"
                 className={({ isActive }) =>
                   isActive ? "text-red-400" : "default"
                 }
@@ -207,7 +207,7 @@ const Header = () => {
                         </li>
                         <li>
                           <Link
-                            to="/dashboard/my-selected-classes"
+                            to="/dashboard/shared-dashboard"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-red-400"
                           >
                             Dashboard

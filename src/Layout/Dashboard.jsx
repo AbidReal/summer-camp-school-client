@@ -1,3 +1,4 @@
+import { BiAddToQueue } from "react-icons/bi";
 import {
   FaChalkboardTeacher,
   FaShoppingCart,
@@ -5,9 +6,13 @@ import {
   FaUserEdit,
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
+import useInstructor from "../hooks/useInstructor";
 
 const Dashboard = () => {
-  const isAdmin = true;
+  // const isAdmin = true;
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
   return (
     <div>
       <div className="drawer lg:drawer-open ">
@@ -55,7 +60,35 @@ const Dashboard = () => {
                 </li>
               </>
             )}
-            {!isAdmin && (
+            {isInstructor && (
+              <>
+                <li className=" mt-4">
+                  <NavLink
+                    to="add-a-class"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-red-400 border border-red-400  rounded-xl"
+                        : "border rounded-xl"
+                    }
+                  >
+                    <BiAddToQueue /> Add a Class
+                  </NavLink>
+                </li>
+                <li className=" mt-4">
+                  <NavLink
+                    to="instructor-classes"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-red-400 border border-red-400  rounded-xl"
+                        : "border rounded-xl "
+                    }
+                  >
+                    <FaUserEdit /> My Classes
+                  </NavLink>
+                </li>
+              </>
+            )}
+            {!isAdmin && !isInstructor && (
               <>
                 <li className=" mt-4">
                   <NavLink
