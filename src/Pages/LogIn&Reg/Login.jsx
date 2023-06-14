@@ -4,16 +4,18 @@ import { BiHide, BiShow } from "react-icons/bi";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
 import SocialLogin from "./SocialLogin";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
-  // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     if (location.state && location.state.error) {
@@ -21,12 +23,8 @@ const Login = () => {
     }
   }, [location.state]);
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    // console.log(email, password);
+  const handleLogin = (data) => {
+    const { email, password } = data;
     signIn(email, password)
       .then((result) => {
         const user = result.user;
@@ -41,12 +39,11 @@ const Login = () => {
     setError("");
   };
 
-  //pass section
-
   const togglePasswordVisibility = (e) => {
     e.preventDefault();
     setPasswordVisible(!passwordVisible);
   };
+
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
@@ -55,7 +52,7 @@ const Login = () => {
             <img src="https://cdn-icons-png.flaticon.com/512/5901/5901842.png" />
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form onSubmit={handleLogin} className="card-body">
+            <form onSubmit={handleSubmit(handleLogin)} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -65,6 +62,7 @@ const Login = () => {
                   name="email"
                   placeholder="email"
                   className="input input-bordered"
+                  {...register("email")}
                 />
               </div>
               <div className="form-control">
@@ -78,10 +76,12 @@ const Login = () => {
                       name="password"
                       placeholder="Password"
                       className="input input-bordered pr-[120px]"
+                      {...register("password")}
                     />
                     <button
                       onClick={togglePasswordVisibility}
                       className="absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                      type="button" // Add type="button" to prevent form submission
                     >
                       {passwordVisible ? (
                         <BiShow size={20} />
