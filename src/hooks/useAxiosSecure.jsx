@@ -33,6 +33,7 @@ const useAxiosSecure = () => {
         return Promise.reject(error);
       }
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logOut, navigate, axiosSecure]);
 
   return [axiosSecure];

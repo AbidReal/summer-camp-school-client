@@ -15,6 +15,8 @@ import Home from "../Pages/Home/Home";
 import Instructors from "../Pages/Instructors/Instructors";
 import Login from "../Pages/LogIn&Reg/Login";
 import Registration from "../Pages/LogIn&Reg/Registration";
+import AdminRoute from "./AdminRoute";
+import InstructorRoute from "./InstructorRoute";
 import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -65,19 +67,35 @@ export const router = createBrowserRouter([
           },
           {
             path: "manage-users",
-            element: <ManageUsers />,
+            element: (
+              <AdminRoute>
+                <ManageUsers />
+              </AdminRoute>
+            ),
           },
           {
             path: "manage-classes",
-            element: <ManageClasses />,
+            element: (
+              <AdminRoute>
+                <ManageClasses />
+              </AdminRoute>
+            ),
           },
           {
             path: "add-a-class",
-            element: <AddAClass />,
+            element: (
+              <InstructorRoute>
+                <AddAClass />
+              </InstructorRoute>
+            ),
           },
           {
             path: "instructor-classes",
-            element: <InstructorClasses />,
+            element: (
+              <InstructorRoute>
+                <InstructorClasses />
+              </InstructorRoute>
+            ),
           },
         ],
       },
