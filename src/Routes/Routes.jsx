@@ -1,8 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import Dashboard from "../Layout/Dashboard";
 import Main from "../Layout/Main";
 import Classes from "../Pages/Classes/Classes";
-import StudentDashboard from "../Pages/Dashboards/StudentDashboard";
+import StudentCart from "../Pages/Dashboards/StudentDashboard/StudentCart";
+import StudentEnrolled from "../Pages/Dashboards/StudentDashboard/StudentEnrolled";
+
 import Home from "../Pages/Home/Home";
 import Instructors from "../Pages/Instructors/Instructors";
 import Login from "../Pages/LogIn&Reg/Login";
@@ -36,12 +39,22 @@ export const router = createBrowserRouter([
         element: <Registration />,
       },
       {
-        path: "/student-dashboard",
+        path: "dashboard",
         element: (
           <PrivateRoute>
-            <StudentDashboard />
+            <Dashboard />
           </PrivateRoute>
         ),
+        children: [
+          {
+            path: "my-selected-classes",
+            element: <StudentCart></StudentCart>,
+          },
+          {
+            path: "my-enrolled-classes",
+            element: <StudentEnrolled />,
+          },
+        ],
       },
     ],
   },
