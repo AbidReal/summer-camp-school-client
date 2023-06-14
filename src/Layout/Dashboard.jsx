@@ -1,7 +1,13 @@
-import { FaShoppingCart, FaUserCheck } from "react-icons/fa";
+import {
+  FaChalkboardTeacher,
+  FaShoppingCart,
+  FaUserCheck,
+  FaUserEdit,
+} from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
+  const isAdmin = true;
   return (
     <div>
       <div className="drawer lg:drawer-open ">
@@ -21,30 +27,62 @@ const Dashboard = () => {
 
           <ul className="menu  p-4 lg:py-10 w-80 h-full    text-white ">
             {/* Sidebar content here */}
-            <li className=" mt-4">
-              <NavLink
-                to="my-selected-classes"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-red-400 border border-red-400  rounded-xl"
-                    : "border rounded-xl"
-                }
-              >
-                <FaShoppingCart /> My Selected Classes
-              </NavLink>
-            </li>
-            <li className=" mt-4">
-              <NavLink
-                to="my-enrolled-classes"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-red-400 border border-red-400  rounded-xl"
-                    : "border rounded-xl "
-                }
-              >
-                <FaUserCheck /> My Enrolled Classes
-              </NavLink>
-            </li>
+            {isAdmin && (
+              <>
+                <li className=" mt-4">
+                  <NavLink
+                    to="manage-classes"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-red-400 border border-red-400  rounded-xl"
+                        : "border rounded-xl"
+                    }
+                  >
+                    <FaChalkboardTeacher /> Manage Classes
+                  </NavLink>
+                </li>
+                <li className=" mt-4">
+                  <NavLink
+                    to="manage-users"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-red-400 border border-red-400  rounded-xl"
+                        : "border rounded-xl "
+                    }
+                  >
+                    <FaUserEdit /> Manage Users
+                  </NavLink>
+                </li>
+              </>
+            )}
+            {!isAdmin && (
+              <>
+                <li className=" mt-4">
+                  <NavLink
+                    to="my-selected-classes"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-red-400 border border-red-400  rounded-xl"
+                        : "border rounded-xl"
+                    }
+                  >
+                    <FaShoppingCart /> My Selected Classes
+                  </NavLink>
+                </li>
+                <li className=" mt-4">
+                  <NavLink
+                    to="my-enrolled-classes"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-red-400 border border-red-400  rounded-xl"
+                        : "border rounded-xl "
+                    }
+                  >
+                    <FaUserCheck /> My Enrolled Classes
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

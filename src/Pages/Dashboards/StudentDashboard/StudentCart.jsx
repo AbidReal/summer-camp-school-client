@@ -5,7 +5,7 @@ import useCart from "../../../hooks/useCart";
 const StudentCart = () => {
   const [selectedClasses, refetch] = useCart();
 
-  const totalPrice = selectedClasses.reduce((sum, item) => item.price + sum, 0);
+  // const totalPrice = selectedClasses.reduce((sum, item) => item.price + sum, 0);
 
   const handleDelete = (classId) => {
     Swal.fire({
@@ -35,12 +35,12 @@ const StudentCart = () => {
   return (
     <div className="w-full md:max-w-xl lg:max-w-screen-xl lg:me-auto sm:mx-auto lg:mx-0">
       <div className="font-extrabold text-lg m-4 flex justify-between">
-        <p>
+        {/* <p>
           Total Price: <span className="text-red-500">${totalPrice}</span>
-        </p>
-        <p>
+        </p> */}
+        {/* <p>
           <button className="btn btn-color text-white">Pay</button>
-        </p>
+        </p> */}
       </div>
       <div className="overflow-x-auto">
         <table className="table table-zebra lg:text-base text-center">
@@ -52,11 +52,11 @@ const StudentCart = () => {
               <th>Instructor</th>
               <th>Availability</th>
               <th>Price</th>
+              <th>Pay</th>
               <th>Remove</th>
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
             {selectedClasses.map(
               ({ _id, availableSeats, instructorName, name, price }, index) => (
                 <tr key={_id} className="text-center">
@@ -65,6 +65,11 @@ const StudentCart = () => {
                   <td>{instructorName}</td>
                   <td>{availableSeats}</td>
                   <td className="text-red-500 ">${price}</td>
+                  <td>
+                    <button className="btn btn-sm btn-color text-white">
+                      Pay
+                    </button>
+                  </td>
                   <td className="flex justify-center">
                     <button
                       className="hover:cursor-pointer text-red-500 text-lg "

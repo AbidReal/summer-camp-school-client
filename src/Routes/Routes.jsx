@@ -3,6 +3,8 @@ import ErrorPage from "../ErrorPage/ErrorPage";
 import Dashboard from "../Layout/Dashboard";
 import Main from "../Layout/Main";
 import Classes from "../Pages/Classes/Classes";
+import ManageClasses from "../Pages/Dashboards/AdminDashboard/ManageClasses";
+import ManageUsers from "../Pages/Dashboards/AdminDashboard/ManageUsers";
 import StudentCart from "../Pages/Dashboards/StudentDashboard/StudentCart";
 import StudentEnrolled from "../Pages/Dashboards/StudentDashboard/StudentEnrolled";
 
@@ -53,6 +55,14 @@ export const router = createBrowserRouter([
           {
             path: "my-enrolled-classes",
             element: <StudentEnrolled />,
+          },
+          {
+            path: "manage-users",
+            element: <ManageUsers />,
+          },
+          {
+            path: "manage-classes",
+            element: <ManageClasses />,
           },
         ],
       },
