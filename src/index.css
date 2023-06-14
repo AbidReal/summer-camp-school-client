@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .custom-container {
-  @apply px-4 py-5 mx-auto sm:max-w-xl md:max-w-xl lg:max-w-screen-xl md:px-5;
+  @apply px-4 py-5 mx-auto md:max-w-xl lg:max-w-screen-xl md:px-5;
 }
 .nav-items-style {
   @apply font-medium tracking-wide  transition-colors duration-200 hover:text-red-700;

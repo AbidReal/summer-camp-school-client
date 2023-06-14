@@ -92,11 +92,25 @@ const Registration = () => {
         const user = result.user;
         console.log(user);
         userProfile(name, photo)
-          .then(() => {})
+          .then(() => {
+            const saveUser = { name: name, email: email };
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(saveUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.insertedId) {
+                  navigate(from, { replace: true });
+                }
+              });
+          })
           .catch((error) => {
             console.log(error);
           });
-        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
