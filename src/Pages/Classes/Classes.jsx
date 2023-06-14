@@ -83,7 +83,7 @@ const Classes = () => {
                       onClick={() =>
                         handleSelectedClass({
                           classId: _id,
-                          email: user.email,
+                          email: user?.email,
                           availableSeats,
                           image,
                           instructorName,

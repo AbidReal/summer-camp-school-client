@@ -2,11 +2,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import { AuthContext } from "../../providers/AuthProvider";
-import { FcGoogle } from "react-icons/fc";
 import { toast, ToastContainer } from "react-toastify";
+import SocialLogin from "./SocialLogin";
 
 const Login = () => {
-  const { signIn, googleSignInPopUp } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -35,22 +35,6 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
-        setError(error.message);
-      });
-    setError("");
-  };
-
-  //   google sign in
-  const handleGoogleSignIn = () => {
-    googleSignInPopUp()
-      .then((result) => {
-        const loggedInUser = result.user;
-        // console.log(loggedInUser);
-        setUser(loggedInUser);
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        console.log(error.message);
         setError(error.message);
       });
     setError("");
@@ -126,10 +110,7 @@ const Login = () => {
                   className="btn btn-color text-white"
                 />
               </div>
-              <FcGoogle
-                onClick={handleGoogleSignIn}
-                className=" mt-6 text-5xl text-center mx-auto hover:scale-110 transform transition-all duration-300 ease-in-out"
-              />
+              <SocialLogin />
             </form>
           </div>
         </div>

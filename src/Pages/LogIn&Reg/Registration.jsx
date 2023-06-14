@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import SocialLogin from "./SocialLogin";
 
 const Registration = () => {
   //confirm pass section
@@ -236,6 +237,7 @@ const Registration = () => {
                   disabled={!formValid || !passwordMatch}
                 />
               </div>
+              <SocialLogin />
             </form>
           </div>
         </div>
