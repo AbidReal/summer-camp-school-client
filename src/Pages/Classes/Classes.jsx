@@ -98,7 +98,7 @@ const Classes = () => {
                         })
                       }
                       className="btn text-white btn-color w-full "
-                      disabled={isAdmin || isInstructor}
+                      disabled={isAdmin || isInstructor || availableSeats === 0}
                     >
                       Select
                     </button>
