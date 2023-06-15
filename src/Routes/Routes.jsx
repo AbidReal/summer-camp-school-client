@@ -8,6 +8,7 @@ import ManageUsers from "../Pages/Dashboards/AdminDashboard/ManageUsers";
 import AddAClass from "../Pages/Dashboards/InstructorDashboard/AddAClass";
 import InstructorClasses from "../Pages/Dashboards/InstructorDashboard/InstructorClasses";
 import SharedDashboard from "../Pages/Dashboards/sharedDashboard";
+import Payment from "../Pages/Dashboards/StudentDashboard/Payment/Payment";
 import StudentCart from "../Pages/Dashboards/StudentDashboard/StudentCart";
 import StudentEnrolled from "../Pages/Dashboards/StudentDashboard/StudentEnrolled";
 
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
           {
             path: "shared-dashboard",
             element: <SharedDashboard />,
+          },
+          {
+            path: "payment",
+            element: <Payment />,
           },
           {
             path: "my-selected-classes",

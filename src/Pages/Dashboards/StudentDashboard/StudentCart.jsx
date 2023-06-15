@@ -1,4 +1,5 @@
 import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useCart from "../../../hooks/useCart";
 
@@ -66,9 +67,11 @@ const StudentCart = () => {
                   <td>{availableSeats}</td>
                   <td className="text-red-500 ">${price}</td>
                   <td>
-                    <button className="btn btn-sm btn-color text-white">
-                      Pay
-                    </button>
+                    <Link to="/dashboard/payment">
+                      <button className="btn btn-sm btn-color text-white">
+                        Pay
+                      </button>
+                    </Link>
                   </td>
                   <td className="flex justify-center">
                     <button
