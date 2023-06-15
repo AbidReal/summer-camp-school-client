@@ -1,7 +1,8 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 
-const CheckoutForm = () => {
+// eslint-disable-next-line react/prop-types
+const CheckoutForm = ({ selectedClass }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState("");
@@ -26,8 +27,10 @@ const CheckoutForm = () => {
     } else {
       setCardError("");
       console.log("payment method", paymentMethod);
+      console.log("selected class", selectedClass);
     }
   };
+  console.log("selected class", selectedClass);
 
   return (
     <div className="payment-card bg-gray-800 glass rounded-lg p-4">
