@@ -1,7 +1,38 @@
+import { useState } from "react";
 import useManageClasses from "../../../hooks/useManageClasses";
 
 const ManageClasses = () => {
   const { manageClasses = [], refetch } = useManageClasses();
+  const [feedbackText, setFeedbackText] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedClassId, setSelectedClassId] = useState(null);
+
+  const handleFeedback = (id) => {
+    setSelectedClassId(id);
+    setShowModal(true);
+  };
+
+  const submitFeedback = () => {
+    fetch(`http://localhost:5000/pending-classes/${selectedClassId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        feedback: feedbackText,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setShowModal(false);
+        // Handle success or perform any other actions
+      })
+      .catch((error) => {
+        console.error("Error submitting feedback:", error);
+        // Handle error
+      });
+  };
 
   console.log(manageClasses);
   const handleApprove = (id) => {
@@ -41,9 +72,6 @@ const ManageClasses = () => {
       .catch((error) => {
         console.error("Error denying class:", error);
       });
-  };
-  const handleFeedback = (id) => {
-    console.log(id);
   };
 
   //   const disabledButtons = (id) => {};
@@ -148,20 +176,20 @@ const ManageClasses = () => {
                       });
                     }}
                     disabled={status === "pending" ? false : true}
-                    className="btn btn-color btn-sm"
+                    className="btn btn-color text-white btn-sm"
                   >
                     Approve
                   </button>
                   <button
                     onClick={() => handleDeny(_id)}
                     disabled={status === "pending" ? false : true}
-                    className="btn btn-color btn-sm"
+                    className="btn btn-color text-white btn-sm"
                   >
                     Deny
                   </button>
                   <button
                     onClick={() => handleFeedback(_id)}
-                    className="btn btn-color btn-sm"
+                    className="btn btn-color text-white btn-sm"
                   >
                     Feedback
                   </button>
@@ -171,6 +199,40 @@ const ManageClasses = () => {
           )}
         </tbody>
       </table>
+      {/* Feedback Modal */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="absolute bg-gray-700  rounded shadow-lg p-4">
+            <h2 className="text-lg font-bold mb-4">Provide Feedback</h2>
+            <textarea
+              className="w-full p-2 border border-gray-300 rounded"
+              rows="4"
+              placeholder="Enter your feedback..."
+              value={feedbackText}
+              onChange={(e) => setFeedbackText(e.target.value)}
+            ></textarea>
+            <div className="flex justify-end mt-4">
+              <button
+                className="btn btn-primary mr-2"
+                onClick={submitFeedback}
+                disabled={!feedbackText} // Disable button if feedbackText is empty
+              >
+                Confirm
+              </button>
+              <button
+                className="btn bg-rose-500 hover:bg-rose-700 "
+                onClick={() => {
+                  setShowModal(false);
+                  setFeedbackText(""); // Reset feedback text on modal close
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
