@@ -5,11 +5,12 @@ const ManageClasses = () => {
 
   console.log(manageClasses);
   const handleApprove = (id) => {
-    console.log(id);
-  };
-  const handleDeny = (id) => {
     fetch(`http://localhost:5000/pending-classes/${id}`, {
       method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: "approved" }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -17,6 +18,28 @@ const ManageClasses = () => {
         if (data.modifiedCount) {
           refetch();
         }
+      })
+      .catch((error) => {
+        console.error("Error approving class:", error);
+      });
+  };
+  const handleDeny = (id) => {
+    fetch(`http://localhost:5000/pending-classes/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: "denied" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount) {
+          refetch();
+        }
+      })
+      .catch((error) => {
+        console.error("Error denying class:", error);
       });
   };
   const handleFeedback = (id) => {
