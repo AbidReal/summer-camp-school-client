@@ -2,18 +2,11 @@ import usePendingClasses from "../../../hooks/usePendingClasses";
 
 const InstructorClasses = () => {
   const [pendingClasses] = usePendingClasses();
-  console.log(pendingClasses);
+  //   console.log(pendingClasses);
 
   return (
     <div className="w-full md:max-w-xl lg:max-w-screen-xl lg:me-auto sm:mx-auto lg:mx-0">
-      <div className="font-extrabold text-lg m-4 flex justify-between">
-        {/* <p>
-          Total Price: <span className="text-red-500">${totalPrice}</span>
-        </p> */}
-        {/* <p>
-          <button className="btn btn-color text-white">Pay</button>
-        </p> */}
-      </div>
+      <div className="font-extrabold text-lg m-4 flex justify-between"></div>
       <div className="overflow-x-auto">
         <table className="table table-zebra lg:text-base text-center">
           {/* head */}

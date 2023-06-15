@@ -1,50 +1,125 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import useManageClasses from "../../../hooks/useManageClasses";
 
 const ManageClasses = () => {
-  const [classes, setClasses] = useState([]);
-  useEffect(() => {
-    // Fetch the data from the server
-    axios
-      .get("/pending-classes")
-      .then((response) => {
-        // Set the fetched data to the state
-        setClasses(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching classes:", error);
+  const { manageClasses = [], refetch } = useManageClasses();
+
+  console.log(manageClasses);
+  const handleApprove = (id) => {
+    console.log(id);
+  };
+  const handleDeny = (id) => {
+    fetch(`http://localhost:5000/pending-classes/${id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount) {
+          refetch();
+        }
       });
-  }, []);
+  };
+  const handleFeedback = (id) => {
+    console.log(id);
+  };
+
+  //   const disabledButtons = (id) => {};
+  const handlePostClass = () => {};
 
   return (
-    <div>
-      <h2>Manage Classes</h2>
-      <table>
+    <div className="overflow-x-auto">
+      <table className="table">
+        {/* head */}
         <thead>
           <tr>
+            <th>
+              <label>#</label>
+            </th>
+            <th className="hidden lg:block">Instructor</th>
             <th>Name</th>
+            <th>Capacity</th>
             <th>Price</th>
-            <th>Available Seats</th>
-            <th>Instructor Name</th>
-            <th>Instructor Email</th>
-            <th>Image</th>
             <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {classes.map((classItem) => (
-            <tr key={classItem._id}>
-              <td>{classItem.name}</td>
-              <td>{classItem.price}</td>
-              <td>{classItem.availableSeats}</td>
-              <td>{classItem.instructorName}</td>
-              <td>{classItem.instructorEmail}</td>
-              <td>
-                <img src={classItem.image} alt={classItem.name} />
-              </td>
-              <td>{classItem.status}</td>
-            </tr>
-          ))}
+          {/* row 1 */}
+          {manageClasses.map(
+            (
+              {
+                _id,
+                image,
+                name,
+                price,
+                availableSeats,
+                instructorName,
+                instructorEmail,
+                status,
+              },
+              index
+            ) => (
+              <tr key={_id}>
+                <th>
+                  <label>{index + 1}</label>
+                </th>
+                <td className="hidden lg:block">
+                  <div className="flex items-center space-x-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img src={image} alt="Avatar Tailwind CSS Component" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">{instructorName}</div>
+                      <div className="text-sm opacity-50">
+                        {instructorEmail}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  {name}
+                  <br />
+                </td>
+                <td>{availableSeats}</td>
+                <td>${price}</td>
+
+                <td>
+                  {status === "pending"
+                    ? "pending"
+                    : status === "denied"
+                    ? "denied"
+                    : status === "approved" && "approved"}
+                </td>
+                <td className="flex flex-col">
+                  <button
+                    onClick={() => {
+                      handleApprove(_id);
+                      handlePostClass();
+                    }}
+                    disabled={status === "pending" ? false : true}
+                    className="btn btn-color btn-sm"
+                  >
+                    Approve
+                  </button>
+                  <button
+                    onClick={() => handleDeny(_id)}
+                    disabled={status === "pending" ? false : true}
+                    className="btn btn-color btn-sm"
+                  >
+                    Deny
+                  </button>
+                  <button
+                    onClick={() => handleFeedback(_id)}
+                    className="btn btn-color btn-sm"
+                  >
+                    Feedback
+                  </button>
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </div>
