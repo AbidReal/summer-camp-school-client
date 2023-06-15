@@ -2,7 +2,6 @@ import usePendingClasses from "../../../hooks/usePendingClasses";
 
 const InstructorClasses = () => {
   const [pendingClasses] = usePendingClasses();
-  //   console.log(pendingClasses);
 
   return (
     <div className="w-full md:max-w-xl lg:max-w-screen-xl lg:me-auto sm:mx-auto lg:mx-0">
@@ -17,7 +16,7 @@ const InstructorClasses = () => {
               <th>Instructor</th>
               <th>Price</th>
               <th>Status</th>
-              <th>feedback</th>
+              <th>Feedback</th>
             </tr>
           </thead>
           <tbody>
