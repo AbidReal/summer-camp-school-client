@@ -47,7 +47,24 @@ const ManageClasses = () => {
   };
 
   //   const disabledButtons = (id) => {};
-  const handlePostClass = () => {};
+  const handlePostClass = (data) => {
+    fetch("http://localhost:5000/classes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // Handle the response data if needed
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error("Error posting class:", error);
+      });
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -119,7 +136,16 @@ const ManageClasses = () => {
                   <button
                     onClick={() => {
                       handleApprove(_id);
-                      handlePostClass();
+                      handlePostClass({
+                        _id,
+                        image,
+                        name,
+                        price,
+                        availableSeats,
+                        instructorName,
+                        instructorEmail,
+                        status,
+                      });
                     }}
                     disabled={status === "pending" ? false : true}
                     className="btn btn-color btn-sm"
