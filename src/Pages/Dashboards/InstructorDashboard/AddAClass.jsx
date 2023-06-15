@@ -23,6 +23,7 @@ const AddAClass = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
@@ -53,28 +54,16 @@ const AddAClass = () => {
             image: imgURL,
             status: "pending",
           };
-          console.log(newItem);
+          //   console.log(newItem);
           axiosSecure.post("/pending-classes", newItem).then((data) => {
-            console.log("after posting:", data.data);
+            // console.log("after posting:", data.data);
             if (data.data.insertedId) {
               handleToast();
+              reset();
             }
           });
         }
       });
-    // Handle form submission
-    // fetch("http://localhost:5000/pending-classes", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     console.log(result);
-    //     if (result.insertedId) {
-    //       handleToast();
-    //     }
-    //   });
   };
 
   return (
