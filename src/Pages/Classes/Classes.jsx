@@ -4,10 +4,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import useCart from "../../hooks/useCart";
+import useInstructor from "../../hooks/useInstructor";
+import useAdmin from "../../hooks/useAdmin";
 
 const Classes = () => {
   const { user } = useContext(AuthContext);
   const [, refetch] = useCart();
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
   // const location = useLocation();
@@ -62,7 +66,9 @@ const Classes = () => {
             ({ _id, availableSeats, image, instructorName, name, price }) => (
               <div
                 key={_id}
-                className="card w-96 glass transition-transform duration-500 transform hover:scale-110 "
+                className={`card w-96 glass transition-transform duration-500 transform hover:scale-110 ${
+                  availableSeats === 0 ? "bg-red-500" : ""
+                }`}
               >
                 <figure className="w-full h-full p-4">
                   <img
@@ -92,6 +98,7 @@ const Classes = () => {
                         })
                       }
                       className="btn text-white btn-color w-full "
+                      disabled={isAdmin || isInstructor}
                     >
                       Select
                     </button>
