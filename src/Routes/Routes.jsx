@@ -9,6 +9,7 @@ import AddAClass from "../Pages/Dashboards/InstructorDashboard/AddAClass";
 import InstructorClasses from "../Pages/Dashboards/InstructorDashboard/InstructorClasses";
 import SharedDashboard from "../Pages/Dashboards/sharedDashboard";
 import Payment from "../Pages/Dashboards/StudentDashboard/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboards/StudentDashboard/PaymentHistory";
 import StudentCart from "../Pages/Dashboards/StudentDashboard/StudentCart";
 import StudentEnrolled from "../Pages/Dashboards/StudentDashboard/StudentEnrolled";
 
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
           {
             path: "my-enrolled-classes",
             element: <StudentEnrolled />,
+          },
+          {
+            path: "payment-history",
+            element: <PaymentHistory />,
           },
           {
             path: "manage-users",

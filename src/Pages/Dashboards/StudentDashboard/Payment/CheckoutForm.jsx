@@ -16,10 +16,12 @@ const CheckoutForm = ({ selectedClass: { price, _id, selectedId } }) => {
   const [transactionId, setTransactionId] = useState();
 
   useEffect(() => {
-    axiosSecure.post("/create-payment-intent", { price }).then((res) => {
-      // console.log(res.data.clientSecret);
-      setClientSecret(res.data.clientSecret);
-    });
+    if (price > 0) {
+      axiosSecure.post("/create-payment-intent", { price }).then((res) => {
+        // console.log(res.data.clientSecret);
+        setClientSecret(res.data.clientSecret);
+      });
+    }
   }, [axiosSecure, price]);
 
   const handleSubmit = async (event) => {

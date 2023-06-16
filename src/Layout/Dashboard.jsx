@@ -1,6 +1,7 @@
 import { BiAddToQueue } from "react-icons/bi";
 import {
   FaChalkboardTeacher,
+  FaCreditCard,
   FaShoppingCart,
   FaUserCheck,
   FaUserEdit,
@@ -112,6 +113,18 @@ const Dashboard = () => {
                     }
                   >
                     <FaUserCheck /> My Enrolled Classes
+                  </NavLink>
+                </li>
+                <li className=" mt-4">
+                  <NavLink
+                    to="payment-history"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-red-400 border border-red-400  rounded-xl"
+                        : "border rounded-xl "
+                    }
+                  >
+                    <FaCreditCard /> Payment History
                   </NavLink>
                 </li>
               </>
