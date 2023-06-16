@@ -23,7 +23,16 @@ const TopClasses = () => {
         Top Classes
       </div>
       <Swiper
-        slidesPerView={3}
+        breakpoints={{
+          // For small device
+          640: {
+            slidesPerView: 1,
+          },
+          // For larger device
+          1024: {
+            slidesPerView: 3,
+          },
+        }}
         spaceBetween={30}
         autoplay={{
           delay: 2500,
@@ -33,19 +42,19 @@ const TopClasses = () => {
           clickable: true,
         }}
         modules={[Autoplay, Pagination]}
-        className="mySwiper"
+        className="mySwiper custom-container "
       >
         {classes.map(({ _id, image, name, instructorName, availableSeats }) => (
           <SwiperSlide key={_id}>
-            <div className="card w-96 bg-base-100 shadow-xl h-full flex flex-col">
-              <figure className="flex-grow-0 rounded-xl">
+            <div className="card   bg-base-100 shadow-xl h-full   ">
+              <figure className="w-full h-96 lg:h-80 p-4">
                 <img
+                  className="w-full h-full object-cover rounded-xl transition-transform duration-500 transform hover:scale-110 "
                   src={image}
                   alt={name}
-                  className="rounded-xl p-4 w-full h-80 object-cover"
                 />
               </figure>
-              <div className="card-body flex-grow flex flex-col items-center justify-center">
+              <div className="card-body  flex flex-col items-center justify-center">
                 <h2 className="card-title">{name}</h2>
                 <p className="mb-2">Instructor: {instructorName}</p>
                 <p className="mb-4">Available Seats: {availableSeats}</p>
