@@ -46,7 +46,7 @@ const TopClasses = () => {
       >
         {classes.map(({ _id, image, name, instructorName, availableSeats }) => (
           <SwiperSlide key={_id}>
-            <div className="card   bg-base-100 shadow-xl h-full   ">
+            <div className="card mb-20  bg-base-100 shadow-xl h-full   ">
               <figure className="w-full h-96 lg:h-80 mt-10 p-4">
                 <img
                   className="w-full h-full object-cover rounded-xl transition-transform duration-500 transform hover:scale-110 "
