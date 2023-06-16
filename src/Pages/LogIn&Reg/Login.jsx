@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -9,9 +9,9 @@ import { useForm } from "react-hook-form";
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   // const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  // const from = location.state?.from?.pathname || "/";
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -28,7 +28,7 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
-        navigate(from, { replace: true });
+        // navigate(from, { replace: true });
         window.location.reload();
         console.log(user);
       })
