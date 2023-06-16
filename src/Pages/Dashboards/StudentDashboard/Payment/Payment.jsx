@@ -12,10 +12,12 @@ const Payment = () => {
   const classId = searchParams.get("classId");
   const price = searchParams.get("price");
   const selectedId = searchParams.get("selectedId");
+  const className = searchParams.get("className");
   const selectedClass = {
     _id: classId,
     price: price,
     selectedId: selectedId,
+    className: className,
   };
   return (
     <div className="w-full">

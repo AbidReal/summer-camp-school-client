@@ -12,7 +12,7 @@ const PaymentHistory = () => {
             <tr>
               <th>#</th>
               <th>Transaction ID</th>
-              <th>Class ID</th>
+              <th>Class Name</th>
               <th>Price</th>
               <th>Date</th>
             </tr>
@@ -28,7 +28,7 @@ const PaymentHistory = () => {
                   <tr key={payment._id}>
                     <td>{index + 1}</td>
                     <td>{payment.transactionId}</td>
-                    <td>{payment.classId}</td>
+                    <td>{payment.className}</td>
                     <td>{payment.price}</td>
                     <td>{payment.date}</td>
                   </tr>

@@ -4,8 +4,10 @@ import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
-// eslint-disable-next-line react/prop-types
-const CheckoutForm = ({ selectedClass: { price, _id, selectedId } }) => {
+const CheckoutForm = ({
+  // eslint-disable-next-line react/prop-types
+  selectedClass: { price, _id, selectedId, className },
+}) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
@@ -44,7 +46,16 @@ const CheckoutForm = ({ selectedClass: { price, _id, selectedId } }) => {
     } else {
       setCardError("");
       console.log("payment method", paymentMethod);
-      console.log("price", price, "classId", _id, "selectedId", selectedId);
+      console.log(
+        "price",
+        price,
+        "classId",
+        _id,
+        "selectedId",
+        selectedId,
+        "className",
+        className
+      );
     }
 
     setProcessing(true);
@@ -75,6 +86,7 @@ const CheckoutForm = ({ selectedClass: { price, _id, selectedId } }) => {
         selectedId: selectedId,
         price,
         orderStatue: "service pending",
+        className: className,
         date: new Date(),
       };
       axiosSecure.post("/payments", payment).then((res) => {
@@ -87,7 +99,16 @@ const CheckoutForm = ({ selectedClass: { price, _id, selectedId } }) => {
       });
     }
   };
-  console.log("price", price, "id", _id, "selectedClassId", selectedId);
+  console.log(
+    "price",
+    price,
+    "id",
+    _id,
+    "selectedClassId",
+    selectedId,
+    "className",
+    className
+  );
 
   return (
     <div className="payment-card bg-gray-800 glass rounded-lg p-4">

@@ -74,7 +74,7 @@ const StudentCart = () => {
                   <td className="text-red-500 ">${price}</td>
                   <td>
                     <Link
-                      to={`/dashboard/payment?classId=${classId}&price=${price}&selectedId=${_id}`}
+                      to={`/dashboard/payment?classId=${classId}&price=${price}&selectedId=${_id}&className=${name}`}
                     >
                       <button className="btn btn-sm btn-color text-white">
                         Pay
