@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -28,7 +28,7 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
-        // navigate(from, { replace: true });
+        Navigate("/");
         window.location.reload();
         console.log(user);
       })
