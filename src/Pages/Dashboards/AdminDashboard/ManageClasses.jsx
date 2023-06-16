@@ -13,15 +13,18 @@ const ManageClasses = () => {
   };
 
   const submitFeedback = () => {
-    fetch(`http://localhost:5000/pending-classes/${selectedClassId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        feedback: feedbackText,
-      }),
-    })
+    fetch(
+      `https://summer-camp-school-server-rosy-one.vercel.app/pending-classes/${selectedClassId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          feedback: feedbackText,
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -36,13 +39,16 @@ const ManageClasses = () => {
 
   console.log(manageClasses);
   const handleApprove = (id) => {
-    fetch(`http://localhost:5000/pending-classes/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ status: "approved" }),
-    })
+    fetch(
+      `https://summer-camp-school-server-rosy-one.vercel.app/pending-classes/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: "approved" }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -55,13 +61,16 @@ const ManageClasses = () => {
       });
   };
   const handleDeny = (id) => {
-    fetch(`http://localhost:5000/pending-classes/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ status: "denied" }),
-    })
+    fetch(
+      `https://summer-camp-school-server-rosy-one.vercel.app/pending-classes/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: "denied" }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -76,7 +85,7 @@ const ManageClasses = () => {
 
   //   const disabledButtons = (id) => {};
   const handlePostClass = (data) => {
-    fetch("http://localhost:5000/classes", {
+    fetch("https://summer-camp-school-server-rosy-one.vercel.app/classes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

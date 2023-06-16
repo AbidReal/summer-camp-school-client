@@ -7,7 +7,7 @@ const usePendingClasses = () => {
     queryKey: ["pending-classes", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/pending-classes?email=${user?.email}`
+        `https://summer-camp-school-server-rosy-one.vercel.app/pending-classes?email=${user?.email}`
       );
       return res.json();
     },

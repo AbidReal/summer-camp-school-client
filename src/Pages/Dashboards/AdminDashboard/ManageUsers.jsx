@@ -9,15 +9,20 @@ const ManageUsers = () => {
     data: users = [],
     // refetch
   } = useQuery(["users"], async () => {
-    const res = await axiosSecure.get("http://localhost:5000/users");
+    const res = await axiosSecure.get(
+      "https://summer-camp-school-server-rosy-one.vercel.app/users"
+    );
     return res.data;
   });
   const [disabledButtons, setDisabledButtons] = useState([]);
 
   const handleMakeAdmin = (id) => {
-    fetch(`http://localhost:5000/users/admin/${id}`, {
-      method: "PATCH",
-    })
+    fetch(
+      `https://summer-camp-school-server-rosy-one.vercel.app/users/admin/${id}`,
+      {
+        method: "PATCH",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -38,9 +43,12 @@ const ManageUsers = () => {
       });
   };
   const handleMakeInstructor = (id) => {
-    fetch(`http://localhost:5000/users/instructor/${id}`, {
-      method: "PATCH",
-    })
+    fetch(
+      `https://summer-camp-school-server-rosy-one.vercel.app/users/instructor/${id}`,
+      {
+        method: "PATCH",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

@@ -8,7 +8,7 @@ const PaymentHistory = () => {
       <div className="w-full md:max-w-xl lg:max-w-screen-xl lg:me-auto sm:mx-auto lg:mx-0">
         <table className="table">
           {/* head */}
-          <thead>
+          <thead className="glass">
             <tr>
               <th>#</th>
               <th>Transaction ID</th>
@@ -19,8 +19,8 @@ const PaymentHistory = () => {
           </thead>
           <tbody>
             {isLoading ? (
-              <tr>
-                <td colSpan="8">Loading...</td>
+              <tr className="custom-container flex justify-center items-center h-screen">
+                <td className="loading mx-auto  flex loading-dots loading-lg text-red-500"></td>
               </tr>
             ) : (
               <>

@@ -8,7 +8,9 @@ const useManageClasses = () => {
   } = useQuery({
     queryKey: ["pending-classes"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/pending-classes`);
+      const res = await fetch(
+        `https://summer-camp-school-server-rosy-one.vercel.app/pending-classes`
+      );
       return res.json();
     },
   });

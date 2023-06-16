@@ -19,9 +19,12 @@ const StudentCart = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/selected-classes/${classId}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://summer-camp-school-server-rosy-one.vercel.app/selected-classes/${classId}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {

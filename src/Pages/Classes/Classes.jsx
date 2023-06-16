@@ -17,7 +17,7 @@ const Classes = () => {
   // const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:5000/classes")
+    fetch("https://summer-camp-school-server-rosy-one.vercel.app/classes")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -29,13 +29,16 @@ const Classes = () => {
   const handleSelectedClass = (selectedClass) => {
     console.log(selectedClass);
     if (user && user.email) {
-      fetch("http://localhost:5000/selected-classes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(selectedClass),
-      })
+      fetch(
+        "https://summer-camp-school-server-rosy-one.vercel.app/selected-classes",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(selectedClass),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
