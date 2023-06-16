@@ -66,13 +66,13 @@ const Classes = () => {
             ({ _id, availableSeats, image, instructorName, name, price }) => (
               <div
                 key={_id}
-                className={`card w-96 glass transition-transform duration-500 transform hover:scale-110 ${
+                className={`card w-96 glass transition-transform duration-1000 transform hover:scale-110 ${
                   availableSeats === 0 ? "bg-red-500" : ""
                 }`}
               >
                 <figure className="w-full h-full p-4">
                   <img
-                    className="w-full h-full object-cover rounded-xl transition-transform duration-500 transform hover:scale-110 "
+                    className="w-full h-full object-cover rounded-xl transition-transform duration-[1000ms] transform hover:scale-110 "
                     src={image}
                     alt={name}
                   />

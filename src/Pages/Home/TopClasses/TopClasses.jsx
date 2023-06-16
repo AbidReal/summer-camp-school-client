@@ -19,8 +19,8 @@ const TopClasses = () => {
 
   return (
     <>
-      <div className=" text-center font-extrabold text-3xl pt-10 lg:pt-20 pb-4">
-        Top Classes
+      <div className=" text-center font-extrabold text-5xl pt-10 lg:pt-40 pb-4 lg:pb-10">
+        Popular Classes
       </div>
       <Swiper
         breakpoints={{
@@ -47,7 +47,7 @@ const TopClasses = () => {
         {classes.map(({ _id, image, name, instructorName, availableSeats }) => (
           <SwiperSlide key={_id}>
             <div className="card   bg-base-100 shadow-xl h-full   ">
-              <figure className="w-full h-96 lg:h-80 p-4">
+              <figure className="w-full h-96 lg:h-80 mt-10 p-4">
                 <img
                   className="w-full h-full object-cover rounded-xl transition-transform duration-500 transform hover:scale-110 "
                   src={image}
