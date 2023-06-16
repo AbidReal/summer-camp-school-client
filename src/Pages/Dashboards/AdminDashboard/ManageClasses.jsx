@@ -165,14 +165,12 @@ const ManageClasses = () => {
                     onClick={() => {
                       handleApprove(_id);
                       handlePostClass({
-                        _id,
                         image,
                         name,
                         price,
                         availableSeats,
                         instructorName,
                         instructorEmail,
-                        status,
                       });
                     }}
                     disabled={status === "pending" ? false : true}

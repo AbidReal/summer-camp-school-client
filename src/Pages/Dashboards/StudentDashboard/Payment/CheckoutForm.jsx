@@ -1,10 +1,11 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 // eslint-disable-next-line react/prop-types
-const CheckoutForm = ({ selectedClass: { price, _id } }) => {
+const CheckoutForm = ({ selectedClass: { price, _id, selectedId } }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
@@ -16,7 +17,7 @@ const CheckoutForm = ({ selectedClass: { price, _id } }) => {
 
   useEffect(() => {
     axiosSecure.post("/create-payment-intent", { price }).then((res) => {
-      console.log(res.data.clientSecret);
+      // console.log(res.data.clientSecret);
       setClientSecret(res.data.clientSecret);
     });
   }, [axiosSecure, price]);
@@ -41,7 +42,7 @@ const CheckoutForm = ({ selectedClass: { price, _id } }) => {
     } else {
       setCardError("");
       console.log("payment method", paymentMethod);
-      console.log("price", price, "id", _id);
+      console.log("price", price, "classId", _id, "selectedId", selectedId);
     }
 
     setProcessing(true);
@@ -64,9 +65,27 @@ const CheckoutForm = ({ selectedClass: { price, _id } }) => {
     if (paymentIntent.status === "succeeded") {
       setTransactionId(paymentMethod.id);
       //   const transactionId = paymentIntent.id;
+      //save payment info to server
+      const payment = {
+        email: user?.email,
+        transactionId: paymentIntent.id,
+        classId: _id,
+        selectedId: selectedId,
+        price,
+        orderStatue: "service pending",
+        date: new Date(),
+      };
+      axiosSecure.post("/payments", payment).then((res) => {
+        console.log(res.data);
+        if (res.data.insertResult.insertedId) {
+          toast.success("Payment completed successfully!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
+      });
     }
   };
-  console.log("price", price, "id", _id);
+  console.log("price", price, "id", _id, "selectedClassId", selectedId);
 
   return (
     <div className="payment-card bg-gray-800 glass rounded-lg p-4">
@@ -108,6 +127,7 @@ const CheckoutForm = ({ selectedClass: { price, _id } }) => {
           </p>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

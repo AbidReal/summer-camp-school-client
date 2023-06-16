@@ -11,9 +11,11 @@ const Payment = () => {
   const searchParams = new URLSearchParams(location.search);
   const classId = searchParams.get("classId");
   const price = searchParams.get("price");
+  const selectedId = searchParams.get("selectedId");
   const selectedClass = {
     _id: classId,
     price: price,
+    selectedId: selectedId,
   };
   return (
     <div className="w-full">

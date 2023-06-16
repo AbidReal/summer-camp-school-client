@@ -59,7 +59,10 @@ const StudentCart = () => {
           </thead>
           <tbody>
             {selectedClasses.map(
-              ({ _id, availableSeats, instructorName, name, price }, index) => (
+              (
+                { _id, availableSeats, instructorName, name, price, classId },
+                index
+              ) => (
                 <tr key={_id} className="text-center">
                   <th>{index + 1}</th>
                   <td>{name}</td>
@@ -68,7 +71,7 @@ const StudentCart = () => {
                   <td className="text-red-500 ">${price}</td>
                   <td>
                     <Link
-                      to={`/dashboard/payment?classId=${_id}&price=${price}`}
+                      to={`/dashboard/payment?classId=${classId}&price=${price}&selectedId=${_id}`}
                     >
                       <button className="btn btn-sm btn-color text-white">
                         Pay
