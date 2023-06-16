@@ -30,7 +30,7 @@ const TopInstructors = () => {
 
   return (
     <>
-      <div data-aos="fade-up">
+      <div>
         <div className="text-center font-extrabold text-5xl pt-10 lg:pt-40 pb-4 lg:pb-10">
           Popular Instructors
         </div>
