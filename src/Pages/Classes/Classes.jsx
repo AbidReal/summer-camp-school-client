@@ -88,6 +88,7 @@ const Classes = () => {
                     Price: <span className="text-red-500">${price}</span>{" "}
                   </p>
                   <div className="card-actions justify-end">
+                    {/* button */}
                     <button
                       onClick={() =>
                         handleSelectedClass({
